@@ -1,4 +1,4 @@
-![mahua](mahua-logo.jpg)
+#Ruby test
 ##About slimhappy
 * 2016 Graduated from University of Shanghai for Scince and Techology
 * Always try to do something awesome (But often give up in the half way)

@@ -1,5 +1,5 @@
 # RubyTest
-![alt tag](https://raw.githubusercontent.com/mandliya/algorithms_and_ds_playground/master/image.jpg)  
+![alt tag](https://github.com/slimhappy/rubytest/raw/master/images/666.jpg)  
 
 | Current Status|     Stats     |
 | :------------: | :----------: |

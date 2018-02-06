@@ -4,6 +4,37 @@
 | Current Status|     Stats     |
 | :------------: | :----------: |
 | Total Files | 1 |
+## Optimize the crawler for bilibili rank_hot list
+```ruby
+#run a safari-driver and goto target page
+dr = Selenium::WebDriver.for :safari
+url = 'https://www.bilibili.com/v/anime/serial/?spm_id_from=333.334.primary_menu.8#/'
+dr.get url
+#parse page with nokogiri
+page = Nokogiri::HTML(dr.page_source)
+topanimation_title = page.xpath('//p[@class="ri-title"]')
+topanimation_link = page.xpath('//a[@class="ri-info-wrap clearfix"]/@href')
+#print results
+for i in 0..(topanimation_title.size()-1)
+	puts topanimation_title[i].text.to_s+"链接为www.bilibili.com"+topanimation_link[i].to_s
+end
+```
+
+results:
+
+```
+JusticedeMacBook-Pro:rubytest justice$ ruby test.rb
+【1月】卫宫家今天的饭 02【独家正版】链接为www.bilibili.com/video/av19007683/
+【1月】紫罗兰永恒花园 04【独家正版】链接为www.bilibili.com/video/av18968396/
+【1月】龙王的工作！ 05【独家正版】链接为www.bilibili.com/video/av19182099/
+【1月】pop子和pipi美的日常 05【独家正版】链接为www.bilibili.com/video/av19090211/
+【1月】小木乃伊到我家 04【独家正版】链接为www.bilibili.com/video/av19034729/
+【1月】Fate/EXTRA Last Encore 02【独家正版】链接为www.bilibili.com/video/av19108027/
+【1月】博多豚骨拉面团 04【独家正版】链接为www.bilibili.com/video/av19043221/
+【1月】魔卡少女樱 透明牌篇 05链接为www.bilibili.com/video/av19114197/
+【1月】爱吃拉面的小泉同学 05链接为www.bilibili.com/video/av19005536/
+【1月】刻刻 05【独家正版】链接为www.bilibili.com/video/av19141685/
+```
 
 ## update a crawler for bilibili rank_hot list
 ```ruby

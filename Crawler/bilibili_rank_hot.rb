@@ -17,7 +17,7 @@ require 'selenium-webdriver'
 # end
 dr = Selenium::WebDriver.for :safari
 url = 'https://www.bilibili.com/v/anime/serial/?spm_id_from=333.334.primary_menu.8#/'
-dr.navigate.to url
+
 dr.get url
 
 puts dr.title

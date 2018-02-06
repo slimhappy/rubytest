@@ -1,11 +1,12 @@
-#test file 
+#get hot rank list from bilibili.com 
+#using safari development mod
 #using begin...
 # 	   rescue...
 #      end
 require 'rubygems'
-require 'nokogiri'
-require 'open-uri'
-require 'watir'
+# require 'open-uri'
+require 'Nokogiri'
+# require 'watir'
 require 'selenium-webdriver'
 # page = Nokogiri::HTML(open("https://www.bilibili.com/v/anime/serial/?spm_id_from=333.334.primary_menu.8#/"))
 # puts page.class
@@ -14,18 +15,15 @@ require 'selenium-webdriver'
 # link.each do |i|
 # 	p link[i]["href"]
 # end
-dr = Selenium::WebDriver.for :safari
+dr = Selenium::WebDriver.for :ie
 url = 'https://www.bilibili.com/v/anime/serial/?spm_id_from=333.334.primary_menu.8#/'
-dr.navigate.to url
-dr.get url
-puts dr.title
-puts dr.browser
 
-links_hot1_3 = dr.find_element(:class,'rank-list hot-list').find_elements(:class,'rank-item  show-detail first highlight')
-links_hot1_3.each do |i|
-	puts i.text
-end
-links_hot4_7 = dr.find_element(:class,'rank-list hot-list').find_elements(:class,'rank-item  show-detail')
-links_hot4_7.each do |i|
-	puts i.text
-end
+dr.get url
+page = Nokogiri::HTML(dr.page_source)
+link = page.xpath("//ul//li//a")
+puts link
+puts link[0]
+puts link[0].to_s.rindex('href=')
+# link.each do |i|
+# 	puts i.to_s.rindex('href=')
+# end

@@ -1,26 +1,13 @@
-print "please enter a temperature and (C or F): "
-str = gets
-str.chomp!
-exit if str.nil? or str.empty?
-
-temp, scale = str.split(" ")
-
-abort "#{temp} is not a valid number." if temp !~ /-?\d+/
-
-temp = temp.to_f
-case scale
-	when "C","c"
-		f = 1.8*temp + 32
-	when "F","f"
-		c = (5.0/9.0)*(temp-32)
-else
-	abort "Must specify C or F."
+def my_sequence
+	for i in 1..10 do
+		yield i
+	end
 end
 
-if f.nil?
-	print "#{c} degrees C\n"
-else
-	print "#{f} degrees F\n"
+my_sequence{|x| puts x**3}
+
+def some_method
+	#code
+rescue
+	#recovery
 end
-
-

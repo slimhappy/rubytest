@@ -2,7 +2,7 @@
 
 ## learned what? 2018-02-07
 
-### ruby hash入门
+### hash入门
 
 ```ruby
 2.4.1 :022 > H=Hash["a"=>100,"b"=>300]

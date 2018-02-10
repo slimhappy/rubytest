@@ -514,6 +514,221 @@ end
 # Produces output: A B C
 # chars.class=>Array
 ```
+特殊字符比较：  
+```ruby
+class String #重写了String类下的 <=>方法
+
+	alias old_compare <=>
+
+	def <=>(other)
+		a = self.dup
+		b = other.dup
+		#remove punctutation
+		a.gsub!(/[\,\.\?\!\:\;]/, "")
+		b.gsub!(/[\,\.\?\!\:\;]/, "")
+		#remove leading/trailing whitespace
+		a.gsub!(/^(a |an |the )/i, "")
+		b.gsub!(/^(a |an |the )/i, "")
+		a.strip!
+		b.strip!
+		#Use the old <=>
+		puts a.length
+		puts b.length
+		a.old_compare(b)
+	end
+end
+
+title1 = "Calling All Cars"
+title2 = "The Call of the world"
+
+if title1 < title2
+	puts "yes"
+else
+	puts "no"
+end
+```
+分解字符串：  
+slipt用法.   
+```ruby
+s1 = "It was a dark and stormy night"
+words = s1.split
+
+s2 = "apples,pears, and peaches"
+list = s2.split(",")
+
+s3 = "lions and tigers and bears"
+zoo = s3.split(/ and /)
+
+# split规则说明：
+# 1. 如果忽略后面的参数，则忽略末尾的空值项
+# 2. 如果后面有正参数，则返回的最大字段数由该字段决定
+# 3. 如果后面的参数是负数，对返回的字段数没有限制，并保留末尾空项
+
+str = "alpha,beta,gamma,,"
+list1 = str.split(",")
+list2 = str.split(",",2)
+list3 = str.split(",",4)
+list4 = str.split(",",8)
+list5 = str.split(",",-1)
+```
+scan用法：  
+```ruby
+2.4.1 :012 > s1.scan("a")
+ => ["a", "a"] 
+2.4.1 :013 > s1.scan(/\w+/)
+ => ["it", "is", "a", "dark", "dog"] 
+ ```
+StringScanner：  
+```ruby
+require 'strscan'
+str = "watch how i soar!"
+ss = StringScanner.new(str)
+loop do 
+	word = ss.scan(/\w+/)
+	break if word.nil?
+	puts word 
+	sep = ss.scan(/\W+/)
+	break if sep.nil?
+end
+```
+格式化字符串：
+```ruby
+name = "Bob"
+age = 28
+str = sprintf("hi, %s... I see you're %d years old.", name, age)
+puts str
+```
+ljust/center/rjust
+```ruby
+2.4.1 :001 > str = "Moby-Dick"
+ => "Moby-Dick" 
+2.4.1 :002 > s1 = str.ljust(13)
+ => "Moby-Dick    " 
+2.4.1 :003 > s1 = str.center(13)
+ => "  Moby-Dick  " 
+2.4.1 :005 > s1 = str.rjust(13)
+ => "    Moby-Dick" 
+2.4.1 :006 > s1 = str.ljust(13,"-")
+ => "Moby-Dick----" 
+2.4.1 :007 > s1 = str.center(13,"+")
+ => "++Moby-Dick++" 
+2.4.1 :008 > s1 = str.rjust(13,"123")
+ => "1231Moby-Dick" 
+```
+#### 控制大小写：  
+upcase/downcase/capitalize
+```ruby
+2.4.1 :009 > s1 = "sb is a way"
+ => "sb is a way" 
+2.4.1 :010 > s2 = s1.downcase
+ => "sb is a way" 
+2.4.1 :011 > s3 = s1.upcase
+ => "SB IS A WAY" 
+2.4.1 :012 > s4 = s1.capitalize
+ => "Sb is a way" 
+ ```
+swapcase
+```ruby
+2.4.1 :013 > s1 = "SB is a way"
+ => "SB is a way" 
+2.4.1 :014 > s1.swapcase
+ => "sb IS A WAY" 
+ ```
+casecmp(字符串比较,忽略大小写)
+```ruby
+2.4.1 :015 > n1 = "abc".casecmp("xyz")
+ => -1 
+2.4.1 :016 > n2 = "abc".casecmp("XYZ")
+ => -1 
+2.4.1 :017 > n3 = "ABC".casecmp("xyz")
+ => -1 
+2.4.1 :018 > n3 = "ABC".casecmp("abc")
+ => 0 
+2.4.1 :019 > n4 = "xyz".casecmp("abc")
+ => 1 
+```
+检测大小写：  
+```ruby
+if string =~ /[a~z]/
+	puts "string contains lowercase characters"
+end
+
+if string =~ /[A~Z]/
+	puts "string contains lowercase characters"
+end
+
+if string =~ /[A~Z]/ and string =~ /[a~z]/
+	puts "string contains mixed characters"
+end
+
+if string[0..0] =~ /[A~Z]/
+	puts "string contains mixed characters"
+end
+```
+获取和设置子字符串
+```ruby
+2.4.1 :020 > str = "six brother"
+ => "six brother" 
+2.4.1 :022 > sub1 = str[4,7]
+ => "brother" 
+2.4.1 :023 > sub1 = str[4,99]
+ => "brother" 
+2.4.1 :024 > sub1 = str[4,-4]
+ => nil 
+2.4.1 :026 > sub1 = str[-7,4]
+ => "brot" 
+2.4.1 :032 > sub1 = str[/b.*r/]
+ => "brother" 
+2.4.1 :033 > sub1 = str["broth"]
+ => "broth" 
+2.4.1 :034 > ch1 = str[0]
+ => "s" 
+
+```
+字符串替换：
+```ruby
+2.4.1 :046 > str = "sb is a Way."
+ => "sb is a Way." 
+2.4.1 :047 > pos1 = str.sub(/sb/,"666")
+ => "666 is a Way." 
+2.4.1 :050 > s1 = "alfalfa abracadabra"
+ => "alfalfa abracadabra" 
+2.4.1 :051 > s2 = s1.gsub(/a[bl]/,"xx")
+ => "xxfxxfa xxracadxxra" 
+2.4.1 :054 > s3 = s1.gsub!(/[lfdbr]/){ |m| m.upcase + "-" }
+ => "aL-F-aL-F-a aB-R-acaD-aB-R-a" 
+```
+to_s和to_str的区别
+```ruby
+class Helium
+	def to_s
+		"he"
+	end
+	def to_str
+		"helium"
+	end
+end
+
+e = Helium.new
+print "Element is "
+puts e
+puts "Element is "+ e
+puts "Element is #{e}"
+```
+=====>:
+```
+JusticedeMacBook-Pro:rubytest justice$ ruby test.rb
+Element is he
+Element is helium
+Element is he
+```
+
+
+
+
+
+
+
 
 
 

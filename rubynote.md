@@ -312,6 +312,193 @@ rescue
 	#recovery
 end
 ```
+## learned what? 2018-02-10
+
+### ruby OOP
+####创建对象的方式：  
+1. 使用new 方法：  
+```ruby
+myFile = File.new("textfile.txt","w")
+myString = String.new("This is a string object")
+```
+2. 有一些方法可以不用new：  
+```ruby
+yourString = "this is also a string object"
+aNumeber = 5
+```
+
+####创建类
+1. 结构：
+```ruby
+class ClassName
+#...
+end
+```
+2. 定义类举例：
+例1:
+```ruby
+class Friend_zhangbi
+	@@myname = "Friend_zhangbi" #defined a class variable
+
+	def initialize(name,sex,phone)
+		@name,@sex,@phone = name, sex, phone
+		#defined some instance variables
+	end
+
+	def hello # an instance method
+		puts "Hi,I'm #{@name}."
+	end
+
+	def Friend_zhangbi.our_common_friend # a class method
+		puts "we are all friends of #{@@myname}."
+	end
+
+	def say_sex
+		puts "I'm #{@sex}"
+	end
+end 
+
+f1 = Friend_zhangbi.new("Sixbrother","F","666")
+f2 = Friend_zhangbi.new("Weibroher","M","777")
+
+f1.hello
+f1.say_sex
+f2.hello
+f2.say_sex
+
+puts Friend_zhangbi.our_common_friend
+```
+例2:
+```ruby
+class MyClass
+	NAME = "Class Name" #set a class constant
+	@@count = 0 # set & Initialize a class variable
+	def initialize #
+		@@count += 1
+		@myvar = 10
+	end
+
+	def MyClass.getcount #class method
+		@@count	#class variable
+	end
+
+	def getcount #instance returns class variable!
+		@@count #class variable
+	end
+
+	def getmyvar #instance method
+		@myvar #instance variable
+	end
+
+	def setmyvar(val) #instance method sets @myvar
+		@myvar = val
+	end
+	def myvar(val) #another way to set @myvar
+		@myvar = val
+	end
+
+end
+
+foo = MyClass.new 
+puts foo.getmyvar
+foo.setmyvar(20)
+puts foo.getmyvar
+foo.myvar(30)
+puts foo.getmyvar
+```
+其中：
+```ruby
+	def getmyvar #instance method
+		@myvar #instance variable
+	end
+
+	def setmyvar(val) #instance method sets @myvar
+		@myvar = val
+	end
+	def myvar(val) #another way to set @myvar
+		@myvar = val
+	end
+```
+可以用下述代码代替：
+```ruby
+	attr_accessor :myvar #accessor(存取器)
+	# attr_reader :myvar
+	# attr_writer :myvar
+```
+
+3. 修饰方法：private protect public.   
+
+4. 类的继承：  
+```ruby
+class MyClass
+	def hello
+		puts "666"
+	end
+end
+
+class YourClass < MyClass
+	
+end
+
+foo = YourClass.new
+foo.hello 
+```
+5. 类方法的别名：    
+```ruby
+class MyClass
+	def hello
+		puts "666"
+	end
+	
+end
+
+class YourClass < MyClass
+	alias exhello hello
+end
+
+
+foo = YourClass.new
+foo.exhello 
+```
+
+###运行时拼接代码：
+```ruby
+def calculate(op1,operator,op2)
+	string = op1.to_s + operator + op2.to_s
+	eval(string)
+end
+@alpha = 25
+
+puts calculate(2,"+",2)
+puts calculate(5,"*","@alpha")
+```
+
+###反射：  
+概念：活动环境可以查询定义自己的对象，并在运行时扩展或修改他们。  
+诸如defined? respond_to? is_a?这一类方法都是反射的表现
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

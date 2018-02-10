@@ -1,13 +1,8 @@
-def my_sequence
-	for i in 1..10 do
-		yield i
-	end
+def calculate(op1,operator,op2)
+	string = op1.to_s + operator + op2.to_s
+	eval(string)
 end
-
-my_sequence{|x| puts x**3}
-
-def some_method
-	#code
-rescue
-	#recovery
-end
+@alpha = 25
+@beta = 12
+puts calculate(2,"+",2)
+puts calculate(5,"*","@alpha")

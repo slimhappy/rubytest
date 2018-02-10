@@ -315,6 +315,7 @@ end
 ## learned what? 2018-02-10
 
 ### ruby OOP
+
 ####创建对象的方式：  
 1. 使用new 方法：  
 ```ruby

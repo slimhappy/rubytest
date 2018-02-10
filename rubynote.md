@@ -478,6 +478,43 @@ puts calculate(5,"*","@alpha")
 概念：活动环境可以查询定义自己的对象，并在运行时扩展或修改他们。  
 诸如defined? respond_to? is_a?这一类方法都是反射的表现
 
+### 字符串
+
+#### 多行字符串使用（here文档）
+```ruby
+str = <<EOF
+高级工程师六哥,
+高级程序员番薯,
+机关要务员伟哥
+EOF
+puts str
+```
+假设需要末尾EOF缩进  
+```ruby
+str = <<-EOF
+高级工程师六哥,
+高级程序员番薯,
+机关要务员伟哥
+		EOF
+
+puts str
+```
+每次处理每一个字符：  
+```ruby
+str = "ABC"
+str.each_byte{|char| print char," "}
+# Produces output: 65 66 67
+```
+```ruby
+str = "ABC"
+chars = str.scan(/./)
+chars.each do |char|
+	print char," "
+end
+# Produces output: A B C
+# chars.class=>Array
+```
+
 
 
 

@@ -316,7 +316,7 @@ end
 
 ### ruby OOP
 
-####创建对象的方式：  
+#### 创建对象的方式：  
 1. 使用new 方法：  
 ```ruby
 myFile = File.new("textfile.txt","w")
@@ -328,7 +328,7 @@ yourString = "this is also a string object"
 aNumeber = 5
 ```
 
-####创建类
+#### 创建类
 1. 结构：
 ```ruby
 class ClassName
@@ -462,7 +462,7 @@ foo = YourClass.new
 foo.exhello 
 ```
 
-###运行时拼接代码：
+### 运行时拼接代码：
 ```ruby
 def calculate(op1,operator,op2)
 	string = op1.to_s + operator + op2.to_s
@@ -474,7 +474,7 @@ puts calculate(2,"+",2)
 puts calculate(5,"*","@alpha")
 ```
 
-###反射：  
+### 反射：  
 概念：活动环境可以查询定义自己的对象，并在运行时扩展或修改他们。  
 诸如defined? respond_to? is_a?这一类方法都是反射的表现
 

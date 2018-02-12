@@ -722,6 +722,32 @@ Element is he
 Element is helium
 Element is he
 ```
+删除字符串中的空白(strip)
+```ruby
+C:\Users\Justice\Desktop>irb
+irb(main):001:0> str1 = "\t \nabc \t\n"
+=> "\t \nabc \t\n"
+irb(main):002:0> str2 = str1.strip
+=> "abc"
+irb(main):003:0> str3 = str1.strip!
+=> "abc"
+irb(main):004:0> str1
+=> "abc"
+irb(main):005:0> str1 = "  abc  "
+=> "  abc  "
+irb(main):006:0> str1.lstrip
+=> "abc  "
+irb(main):007:0> str1.rstrip
+=> "  abc"
+irb(main):008:0> str1 = " \n abc  "
+=> " \n abc  "
+irb(main):009:0> str1.lstrip
+=> "abc  "
+irb(main):010:0> str1 = " \n\t abc  "
+=> " \n\t abc  "
+irb(main):011:0> str1.lstrip
+=> "abc  "
+```
 
 
 

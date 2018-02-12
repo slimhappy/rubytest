@@ -749,6 +749,210 @@ irb(main):011:0> str1.lstrip
 => "abc  "
 ```
 
+#### rot13编码
+
+```ruby
+class String
+
+  def rot13
+  	self.tr("A-Ma-mN-Zn-z","N-Zn-zA-Ma-m")
+  end
+
+end
+
+joke = "Y2K bug"
+joke13 = joke.rot13
+puts joke13
+
+episode_2 = "Fcbvyre: Naanxva qbrfa'g trg xvyyq."
+puts episode_2.rot13
+```
+
+#### 字符串加密
+
+```ruby
+coded = ("666").crypt("hf")
+
+puts "Speak,friend,and enter!"
+
+print "Password:"
+password = gets.chop
+
+if password.crypt("hf") == coded
+  puts "Welcome!"
+else
+  puts "What are you,an orc?"
+end
+```
+
+#### 字符串压缩
+
+使用zlib库进行压缩：  
+```ruby
+require 'zlib'
+include Zlib
+
+long_string = ("abcde"*71 + "defghi"*79 +"ghijkl"*113)*371
+
+s1 = Deflate.deflate(long_string,BEST_SPEED)
+s2 = Deflate.deflate(long_string)
+s3 = Deflate.deflate(long_string,BEST_COMPRESSION)
+
+puts s1.size() #4188
+puts s2.size() #3567
+puts s3.size() #2120
+```
+
+#### 计算字符串中的字符数
+
+count 方法:
+```ruby
+2.4.1 :002 > a = s1.count("c")
+ => 1 
+2.4.1 :003 > a = s1.count("bdr")
+ => 5 
+2.4.1 :004 > c = s1.count("^a")
+ => 6 
+2.4.1 :005 > c = s1.count("bdr")
+ => 5 
+2.4.1 :006 > e = s1.count("a-d")
+ => 9 
+2.4.1 :007 > e = s1.count("^a-d")
+ => 2 
+```
+
+#### 字符串反转
+
+reverse方法  
+```ruby
+2.4.1 :001 > s1 = "987654321"
+ => "987654321" 
+2.4.1 :002 > s2 = s1.reverse
+ => "123456789" 
+2.4.1 :003 > s1.reverse!
+ => "123456789" 
+```
+
+#### 删除重复的字符
+
+squeeze方法：
+
+```ruby
+2.4.1 :004 > s1 = "bookkeeper"
+ => "bookkeeper" 
+2.4.1 :005 > s2 = s1.squeeze
+ => "bokeper" 
+2.4.1 :006 > s3 = s1.squeeze("o")
+ => "bokkeeper" 
+```
+反转句子中的单词：  
+```ruby
+phrase = "niubi de liuge"
+puts phrase.split(" ").reverse.join(" ")
+#liuge de niubi
+```
+
+#### 删除指定的字符
+delete 方法
+delete！方法
+```ruby
+2.4.1 :001 > s1 = "to be, or not to be"
+ => "to be, or not to be" 
+2.4.1 :002 > s2 = s1.delete("b")
+ => "to e, or not to e" 
+2.4.1 :003 > s3 = "Veni,vidi,vici!"
+ => "Veni,vidi,vici!" 
+2.4.1 :004 > s4 = s3.delete(",!")
+ => "Venividivici" 
+```
+
+#### 打印特殊字符
+dump方法
+```ruby
+2.4.1 :001 > s1 = "Listen" << 7 << 7 << 7
+ => "Listen\a\a\a" 
+2.4.1 :002 > puts s1.dump
+"Listen\a\a\a"
+```
+
+#### 生成后续字符串
+succ方法
+```ruby
+2.4.1 :003 > droid = "R2D2"
+ => "R2D2" 
+2.4.1 :004 > droid.succ
+ => "R2D3" 
+```
+upto方法
+```ruby
+"Files,A".upto "Files,X" do |letter|
+  puts "opening : #{letter}"
+end
+```
+results:
+```
+opening : Files,A
+持续打印...
+opening : Files,X
+```
+
+#### 计算32位的CRC
+
+循环冗余校验和：  
+用于获得文件或其他字节集的“签名的方式。  
+```ruby
+require 'zlib'
+include Zlib
+puts crc = crc32("hello")			#907060870
+puts crc = crc32(" world!",crc)		#62177901
+puts crc = crc32("hello world!")	#62177901
+```
+
+#### 两个字符串之间的Levenshtein距离
+
+```ruby
+class String
+
+  def levenstein(other, ins=2, del=2, sub=1)
+  	#默认值设置
+  	return nil if self.nil?
+  	return nil if other.nil?
+  	dm = []  #距离矩阵
+  	#初始化第一行数据
+  	dm[0] = (0..self.length).collect{ |i| i * ins}
+  	fill = [0] * (self.length - 1)
+
+  	for i in 1..other.length
+  	  dm[i] = [i * del, fill.flatten]
+  	end
+
+  	#populate matrix
+  	for i in 1..other.length
+  	for j in 1..self.length
+  	  dm[i][j] = [
+  	  	dm[i-1][j-1] +
+  	  	  (self[j-1] == other[i-1] ? 0 : sub),
+  	  	    dm[i][j-1] + ins,
+  	  	  dm[i-1][j] + del
+  	  	].min
+  	  end
+    end
+	dm[other.length][self.length]
+  end
+end
+
+s1 = "abc"
+s2 = "abd"
+
+d1 = s1.levenstein(s2)
+
+puts d1
+
+```
+
+
+
+
 
 
 

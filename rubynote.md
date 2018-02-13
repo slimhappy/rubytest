@@ -749,6 +749,38 @@ irb(main):011:0> str1.lstrip
 => "abc  "
 ```
 
+重复字符串：
+```ruby
+irb(main):012:0> etc = "Etc."*3
+=> "Etc.Etc.Etc."
+```
+字符串延迟插入：  
+```ruby
+str = proc {|x,y,z| "the numbers are #{x},#{y},#{z}"}
+str1 = str.call(1,2,3)
+str2 = str.call(4,5,6)
+puts str1
+puts str2
+```
+算出来的字符串：  
+```ruby
+str = '#{name} niubi #{hello}'
+name = "666"
+hello = "hello"
+str1 = eval(' "'+str+'" ')
+p str1
+```
+将逗号分隔的字符串编程数组：
+```ruby
+irb(main):001:0> string = gets.chop!
+666,777,888,999
+=> "666,777,888,999"
+irb(main):002:0> data = eval("["+string+"]")
+=> [666, 777, 888, 999]
+irb(main):003:0> data.class
+=> Array
+```
+
 #### rot13编码
 
 ```ruby

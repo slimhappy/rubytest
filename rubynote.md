@@ -982,10 +982,29 @@ puts d1
 
 ```
 
+### 正则表达式
 
+#### 正则表达式语法：
 
+/ruby/ 匹配单词ruby
+```ruby
+irb(main):001:0> try = /ruby/
+=> /ruby/
+irb(main):002:0> try =~ "ruby"
+=> 0
+irb(main):003:0> try =~ "Ruby"
+=> nil
+```
 
-
+/[Rr]uby/ 匹配Ruby或ruby
+```ruby
+irb(main):004:0> try = /[Rr]uby/
+=> /[Rr]uby/
+irb(main):005:0> try =~ "Ruby"
+=> 0
+irb(main):006:0> try =~ "ruby"
+=> 0
+```
 
 
 

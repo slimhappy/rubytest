@@ -1006,11 +1006,59 @@ irb(main):006:0> try =~ "ruby"
 => 0
 ```
 
+/^abc/ 匹配行首是abc
+```ruby
+irb(main):001:0> fx = /^abc/
+=> /^abc/
+irb(main):002:0> fx =~ "abcdef"
+=> 0
+irb(main):003:0> fx =~ "defabc"
+=> nil
+irb(main):004:0> fx =~ "defabc\nabcdef"
+=> 7
+```
 
+/^def/ 匹配行尾是def
+```ruby
+irb(main):005:0> fx = %r(def$)
+=> /def$/
+irb(main):006:0> fx =~ "abcdef"
+=> 3
+irb(main):007:0> fx =~ "defabc"
+=> nil
+```
+匹配地址
+```ruby
+irb(main):015:0> ssn = "dizhi9890-76-2838"
+=> "dizhi9890-76-2838"
+irb(main):016:0> pattern = /\d\d\d\d-\d\d-\d\d\d\d/
+=> /\d\d\d\d-\d\d-\d\d\d\d/
+irb(main):017:0> pattern =~ ssn
+=> 5
+irb(main):018:0> pattern = /\d{4}-\d{2}-\d{4}/
+=> /\d{4}-\d{2}-\d{4}/
+irb(main):019:0> pattern =~ ssn
+=> 5
+```
 
+#### 正则表达式术语
 
-
-
+1. 贪婪与非贪婪：  
+贪婪：尽可能匹配长的字符串  
+非贪婪：只匹配关键词  
+例子：
+贪婪：（添加 * 号）
+```ruby
+str = "Where the sea meets the moon-blanch'd land,"
+match = /.*the/.match(str)
+p match[0]
+```
+非贪婪：（添加？号）
+```ruby
+str = "Where the sea meets the moon-blanch'd land,"
+match = /.*?the/.match(str)
+p match[0]
+```
 
 
 

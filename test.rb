@@ -1,36 +1,23 @@
-class String
+str = "arufa beruta gagama deruta eisip"
 
-  def levenstein(other, ins=2, del=2, sub=1)
-  	#默认值设置
-  	return nil if self.nil?
-  	return nil if other.nil?
-  	dm = []  #距离矩阵
-  	#初始化第一行数据
-  	dm[0] = (0..self.length).collect{ |i| i * ins}
-  	fill = [0] * (self.length - 1)
+pat = /(b[^ ]+ )(g[^ ]+ )(d[^ ]+ )/
+refs = pat.match(str)
+#匹配到beruta并返回索引值
+puts refs.begin(1)
+puts refs.end(1)
+#匹配到gagama并返回索引值
+puts refs.begin(2)
+puts refs.end(2)
+#匹配到deruta并返回索引值
+puts refs.begin(3)
+puts refs.end(3)
+#匹配整个字符串中“b开头+g开头+d开头”的字符串并返回位置
+puts refs.begin(0)
+puts refs.end(0)
 
-  	for i in 1..other.length
-  	  dm[i] = [i * del, fill.flatten]
-  	end
+puts "offset:"
+p rang0 = refs.offset(0)
+p rang1 = refs.offset(1)
+p rang2 = refs.offset(2)
+p rang3 = refs.offset(3)
 
-  	#populate matrix
-  	for i in 1..other.length
-  	for j in 1..self.length
-  	  dm[i][j] = [
-  	  	dm[i-1][j-1] +
-  	  	  (self[j-1] == other[i-1] ? 0 : sub),
-  	  	    dm[i][j-1] + ins,
-  	  	  dm[i-1][j] + del
-  	  	].min
-  	  end
-    end
-	dm[other.length][self.length]
-  end
-end
-
-s1 = "abc"
-s2 = "abd"
-
-d1 = s1.levenstein(s2)
-
-puts d1

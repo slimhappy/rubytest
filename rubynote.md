@@ -1060,14 +1060,118 @@ match = /.*?the/.match(str)
 p match[0]
 ```
 
+#### 正负预检
 
+```ruby
+s1 = "New World Dicthionary"
+s2 = "New World Symphony"
+s3 = "New World Order"
+puts "正预查示例"
+reg = /New World(?= Dicthionary| Symphony)/
+m1 = reg.match(s1)
+puts m1.to_a[0]
+m2 = reg.match(s2)
+puts m2.to_a[0]
+m3 = reg.match(s3)
+puts m3.to_a[0]
+puts "负预查示例"
+reg2 = /New World(?! Symphony)/
+m1 = reg2.match(s1)
+puts m1.to_a[0]
+m2 = reg2.match(s2)
+puts m2.to_a[0]
+m3 = reg2.match(s3)
+puts m3.to_a[0]
+```
 
+#### 访问后向引用
+解决了如何饮用匹配到的值。
+```ruby
+str = "a123b45c678"
+if /(a\d+)(b\d+)(c\d+)/ =~ str
+  puts "Matches are '#$1','#$2','#$3'"
+end
+```
+要注意使用sub和gsub的时候不能用#$1这种变量  
+如果要使用，则需要使用特殊编码\1    
+```ruby
+str = "a123b45c678"
+str.sub!(/(a\d+)(b\d+)(c\d+)/, 'Matches are \1,\2,\3')
+puts str
+#=>Matches are a123,b45,c678
+```
+```
+注意这个示例'Matches are \1,\2,\3'使用了单引号，如果使用双引号，将被解释为八进制转译序列：
+```
+```ruby
+str = "a123b45c678"
+str.sub!(/(a\d+)(b\d+)(c\d+)/, "Matches are \1,\2,\3")
+p str  #八进制无法用puts表示出来，这里用p
+#=>"Matches are \u0001,\u0002,\u0003"
+```
+那么我要用双引号该怎么办？当然是使用转译符号啦。  
+```ruby
+str = "a123b45c678"
+str.sub!(/(a\d+)(b\d+)(c\d+)/, "Matches are \\1,\\2,\\3")
+p str  #八进制无法用puts表示出来，这里用p
+#=>"Matches are a123,b45,c678"
+```
+使用代码块形式替换:  
+```ruby
+str = "a123b45c678"
+str.sub!(/(a\d+)(b\d+)(c\d+)/)  { "Matches are #$1,#$2,#$3"}
+puts str  #跟上代码块为什么会执行不是很清楚。需要之后学习学习
+#见使用字符类
+#=>"Matches are a123,b45,c678"
+```
+使用类方法Regexp.last_match方法进行匹配并输出结果：  
+```ruby
+pat = /(.+[aiu])(.+[aiu])(.+[aiu])(.+[aiu])/
+refs = pat.match("Fujiyama")
+x = refs[1] #contains all string
+y = refs[2..3] #contains all matched string
+puts refs.class   #=>MatchData
+refs.to_a.each do |x|
+  print "#{x}\n"
+end
+#=>Fujiyama
+#  Fu
+#  ji
+#  ya
+#  ma
+```
+找出子匹配并返回对应位置：  
+```ruby
+str = "arufa beruta gagama deruta eisip"
 
-
-
-
-
-
+pat = /(b[^ ]+ )(g[^ ]+ )(d[^ ]+ )/
+refs = pat.match(str)
+#匹配到beruta并返回索引值
+puts refs.begin(1)
+puts refs.end(1)
+#匹配到gagama并返回索引值
+puts refs.begin(2)
+puts refs.end(2)
+#匹配到deruta并返回索引值
+puts refs.begin(3)
+puts refs.end(3)
+#匹配整个字符串中“b开头+g开头+d开头”的字符串并返回位置
+puts refs.begin(0)
+puts refs.end(0)
+```
+接上，可以使用offset方法返回子匹配的位置:  
+```ruby
+puts "offset:"
+p rang0 = refs.offset(0)
+p rang1 = refs.offset(1)
+p rang2 = refs.offset(2)
+p rang3 = refs.offset(3)
+# =>offset:
+# [6, 27]
+# [6, 13]
+# [13, 20]
+# [20, 27]
+```
 
 
 

@@ -1394,6 +1394,34 @@ irb(main):039:0> b.minor(0..1,0..1)  #参数为行和列的范围
 => Matrix[[1, 2], [4, 5]]
 ```
 
+将长为N的向量转换为Nx1的矩阵
+```ruby
+irb(main):045:0> v = Vector[2,3,5]
+=> Vector[2, 3, 5]
+irb(main):046:0> v.covector
+=> Matrix[[2, 3, 5]]
+```
+
+矩阵乘法:
+```ruby
+irb(main):047:0> v = Matrix[[1,0,0],[0,2,0],[0,0,3]]
+=> Matrix[[1, 0, 0], [0, 2, 0], [0, 0, 3]]
+irb(main):048:0> b
+=> Matrix[[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+irb(main):049:0> b*v
+=> Matrix[[1, 4, 9], [4, 10, 18], [7, 16, 27]]
+```
+
+处理复数：  
+使用标准库complex
+```ruby
+irb(main):001:0> z = Complex(1,2)
+=> (1+2i)
+irb(main):002:0> z = 1+2.i
+=> (1+2i)
+irb(main):003:0> z = Complex.polar(5,Math::PI/2.0)
+=> (0.0+5i)   #极坐标表示法
+```
 
 
 

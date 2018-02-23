@@ -1354,11 +1354,45 @@ puts r+s
  => Matrix[[1, 0, 0], [0, 1, 0], [0, 0, 1]] 
 ```
 
+创建主对角线矩阵，可以定义主对角线上的数字：  
+```ruby
+irb(main):003:0> sm = Matrix.scalar(3,5)
+=> Matrix[[5, 0, 0], [0, 5, 0], [0, 0, 5]]
+irb(main):004:0> sm = Matrix.diagonal(3,5,7)
+=> Matrix[[3, 0, 0], [0, 5, 0], [0, 0, 7]]
+irb(main):005:0> sm = Matrix.zero(3)
+=> Matrix[[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+```
 
+创建单列或单行矩阵：  
+```ruby
+irb(main):023:0> b = Matrix.column_vector([2,3,4,5])
+=> Matrix[[2], [3], [4], [5]]
+irb(main):024:0> b = Matrix.row_vector([2,3,4,5])
+=> Matrix[[2, 3, 4, 5]]
+```
 
+使用Matrix创建并索引（注意索引的范围从0开始）：  
+```ruby
+irb(main):033:0> b = Matrix[[1,2,3],[4,5,6],[7,8,9]]
+=> Matrix[[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+irb(main):034:0> b[0,0]
+=> 1
+irb(main):035:0> b[1,0]
+=> 4
+```
 
-
-
+使用.row_vectors、.column_vectors、minor获取矩阵部分元素
+```ruby
+irb(main):036:0> b = Matrix[[1,2,3],[4,5,6],[7,8,9]]
+=> Matrix[[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+irb(main):037:0> b.row_vectors
+=> [Vector[1, 2, 3], Vector[4, 5, 6], Vector[7, 8, 9]]
+irb(main):038:0> b.column_vectors
+=> [Vector[1, 4, 7], Vector[2, 5, 8], Vector[3, 6, 9]]
+irb(main):039:0> b.minor(0..1,0..1)  #参数为行和列的范围
+=> Matrix[[1, 2], [4, 5]]
+```
 
 
 

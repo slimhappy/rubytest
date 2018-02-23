@@ -4,6 +4,75 @@
 | Current Status|     Stats     |
 | :------------: | :----------: |
 | Total Files | 1 |
+
+## Optimize a formated output file for bilibili rank_hot list: 
+results:
+```
+JusticedeMacBook-Pro:Crawler justice$ ruby bilibili_formation_output.rb
+排名：1
+月份：【1月】
+标题：OVERLORD 第二季 
+集数：07
+链接：www.bilibili.com/video/av19822555/
+--------------------
+排名：2
+月份：【1月】
+标题：龙王的工作！ 
+集数：07
+链接：www.bilibili.com/video/av19781160/
+--------------------
+排名：3
+月份：【1月】
+标题：pop子和pipi美的日常 
+集数：07
+链接：www.bilibili.com/video/av19706242/
+--------------------
+排名：4
+月份：【1月】
+标题：紫罗兰永恒花园 
+集数：07
+链接：www.bilibili.com/video/av19852315/
+--------------------
+排名：5
+月份：【1月】
+标题：Fate/EXTRA Last Encore 
+集数：04
+链接：www.bilibili.com/video/av19716833/
+--------------------
+排名：6
+月份：【1月】
+标题：刻刻 
+集数：07
+链接：www.bilibili.com/video/av19749070/
+--------------------
+排名：7
+月份：【1月】
+标题：齐木楠雄的灾难 第二季 
+集数：05
+链接：www.bilibili.com/video/av19705516/
+--------------------
+排名：8
+月份：【1月】
+标题：齐木楠雄的灾难 第二季 
+集数：06
+链接：www.bilibili.com/video/av19824773/
+--------------------
+排名：9
+月份：【1月】
+标题：齐木楠雄的灾难 第二季 
+集数：01
+链接：www.bilibili.com/video/av19700194/
+--------------------
+排名：10
+月份：【1月】
+标题：魔卡少女樱 透明牌篇 
+集数：07
+链接：www.bilibili.com/video/av19726979/
+--------------------
+新建类总数10
+
+```
+
 ## Optimize the crawler for bilibili rank_hot list
 ```ruby
 #run a safari-driver and goto target page

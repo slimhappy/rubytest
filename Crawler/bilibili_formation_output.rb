@@ -1,9 +1,3 @@
-# File.open("./test.txt", "r+") do |io|
-# 	while line = io.gets
-# 		puts line.chomp
-# 	end
-# end
-
 class Bilibili_Ranklist_Tag
   @@count = 0
   def initialize(b_string)
@@ -40,6 +34,7 @@ class Bilibili_Ranklist_Tag
   	puts "标题：#{@title}"
   	puts "集数：#{@episode}"
   	puts "链接：#{@link}"
+  	puts "--------------------"
   end
 
   attr_accessor:month
@@ -48,37 +43,22 @@ class Bilibili_Ranklist_Tag
   attr_accessor:link
 end
 
-aa = []
-i = 0
-File.open("./test.txt", "r+") do |io|
+
+begin
+  aa = []
+  i = 0
+  File.open("./bilibili_test.txt", "r+") do |io|
 	while line = io.gets
 		aa[i]=Bilibili_Ranklist_Tag.new(line.chomp)
 		i = i+1
 	end
-end
-aa.each do |a|
+  end
+  aa.each do |a|
 	a.listinfo
+  end
+
+  puts "新建类总数#{Bilibili_Ranklist_Tag.count}"
+rescue => errorinfo
+	puts "诶哟出错咧！：)"
+	puts errorinfo
 end
-
-puts Bilibili_Ranklist_Tag.count
-# B_String2 = "【1月】魔卡少女樱 透明牌篇 05链接为www.bilibili.com/video/av19114197/"
-
-# if /(【\d?\d月】)([\u4e00-\u9fa5|\s]*)(\d?\d)/ =~ b_string
-#   month = $1
-#   title = $2
-#   episode = $3
-# else
-#   puts "字符串匹配失败：可能匹配失败字段为month/title/episode"
-# end
-
-# puts month
-# puts title
-# puts episode
-# puts b_string[(b_string =~ /【\d?\d月】/)..(b_string =~ /】/)]
-
-# puts b_string[(b_string =~ /】/)+1..(b_string =~ /\b\d\d\b/)-1]
-
-# puts b_string =~ /【独家正版】/
-
-# puts b_string[(b_string =~ /链接为/)..b_string.size]
-

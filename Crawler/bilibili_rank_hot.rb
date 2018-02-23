@@ -16,5 +16,5 @@ topanimation_title = page.xpath('//p[@class="ri-title"]')
 topanimation_link = page.xpath('//a[@class="ri-info-wrap clearfix"]/@href')
 #print results
 for i in 0..(topanimation_title.size()-1)
-  puts topanimation_title[i].text.to_s+"链接为www.bilibili.com"+topanimation_link[i].to_s
+  puts topanimation_title[i].text.to_s+" www.bilibili.com"+topanimation_link[i].to_s
 end

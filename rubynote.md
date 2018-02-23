@@ -1412,8 +1412,8 @@ irb(main):049:0> b*v
 => Matrix[[1, 4, 9], [4, 10, 18], [7, 16, 27]]
 ```
 
-处理复数：  
-使用标准库complex
+#### 处理复数：  
+使用标准库complex  
 ```ruby
 irb(main):001:0> z = Complex(1,2)
 => (1+2i)
@@ -1424,11 +1424,22 @@ irb(main):003:0> z = Complex.polar(5,Math::PI/2.0)
 ```
 
 
+#### 使用mathn库进行数值计算
 
+```ruby
+require 'mathn'
+```
+好处：非常有效的支持了有理数：  
+```ruby
+irb(main):001:0> Math.sqrt(Rational(9,16))
+=> 0.75
+irb(main):002:0> require 'mathn'
+=> true
+irb(main):003:0> Math.sqrt(Rational(9,16))
+=> (3/4)
+```
 
-
-
-
+#### 
 
 
 

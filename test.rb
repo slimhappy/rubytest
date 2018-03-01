@@ -8,8 +8,11 @@ class Bilibili_Ranklist_Tag
   @@count = 0   #count flag for Tag class
 
   def initialize(b_string)
-
-    @@count += 1 
+    if @@count < 10 
+      @@count += 1 
+    else
+      @@count = 1
+    end
     @no = @@count #No of Tags
 
     if /(\d?\d月)/ =~ b_string
@@ -52,7 +55,7 @@ class Bilibili_Ranklist_Tag
       puts "字符串匹配失败：可能匹配失败字段为link"
     end
     # get the link of tag
-
+    @updown = 0
   end
 
   def Bilibili_Ranklist_Tag.count
@@ -68,20 +71,18 @@ class Bilibili_Ranklist_Tag
     puts "标题：#{@title}"
     puts "集数：#{@episode}" if @episode
     puts "链接：#{@link}"
-    puts "<bilibili独家哟！>" if @bilibilionly_flag
+    puts "bilibili独家哟！" if @bilibilionly_flag
+    puts "排名：#{@updown}"
     puts "--------------------"
   end
-  def isnew?(other)
-    if self.episode.to_i > other.episode.to_i
-      puts "本番剧有更新！"
-    end
-  end
+
   attr_accessor:no
   attr_accessor:month
   attr_accessor:subtag
   attr_accessor:title
   attr_accessor:episode
   attr_accessor:link
+  attr_accessor:updown
 end
 
 
@@ -101,23 +102,35 @@ begin
   # end
   now_Array = []
   i = 0
-  File.open("./test.txt", "r+") do |io|
+  File.open("./test2.txt", "r+") do |io|
   while line = io.gets
     now_Array[i]=Bilibili_Ranklist_Tag.new(line.chomp)
     i = i+1
   end
   end
 
-  now_Array.each do |a|
-  	a.listinfo
+  now_Array2 = []
+  i = 0
+  File.open("./test.txt", "r+") do |io|
+  while line = io.gets
+    now_Array2[i]=Bilibili_Ranklist_Tag.new(line.chomp)
+    i = i+1
+  end
   end
 
-  puts "新建类总数#{Bilibili_Ranklist_Tag.count}"
+  now_Array.each do |tag|
+    now_Array2.each do |tag2|
+      if (tag.title == tag2.title )&&(tag.episode == tag2.episode)
+        if tag.no != tag2.no
+          tag.updown = tag2.no.to_i-tag.no.to_i
+        end
+      end
+    end
+  end
 
-  test_string = "【1月】OVERLORD 第二季 10【独家正版】 www.bilibili.com/video/av19822555/"
-  test_tag = Bilibili_Ranklist_Tag.new(test_string.chomp)
-
-
+  now_Array.each do |a|
+  a.listinfo
+  end
 rescue => errorinfo
   puts "诶哟出错咧！：)"
   puts errorinfo
